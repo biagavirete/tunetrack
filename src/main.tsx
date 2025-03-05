@@ -7,14 +7,13 @@ import {
     Route,
     RouterProvider,
 } from 'react-router-dom';
-import Home from './pages/Home.tsx';
 import Search from './pages/Search.tsx';
 import Favorites from './pages/Favorites.tsx';
-import LandingPage from './pages/LandingPage.tsx';
+import Home from './pages/Home.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<LandingPage />}>
+        <Route path="/" element={<Home />}>
             <Route path="/callback" element={<Home />} />
             <Route path="/search" element={<Search />} />
             <Route path="/favorites" element={<Favorites />} />

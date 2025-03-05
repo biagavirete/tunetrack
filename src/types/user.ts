@@ -1,19 +1,19 @@
 export interface User {
-    display_name: string;
-    external_urls: {
+    display_name?: string;
+    external_urls?: {
         spotify: string;
     };
-    followers: {
+    followers?: {
         href: string | null;
         total: number;
     };
-    href: string;
-    id: string;
-    images: {
-        height: number;
-        url: string;
-        width: number;
+    href?: string;
+    id?: string;
+    images?: {
+        height?: number;
+        url?: string;
+        width?: number;
     }[];
-    type: string;
-    uri: string;
+    type?: string;
+    uri?: string;
 }

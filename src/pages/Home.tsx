@@ -1,19 +1,19 @@
-import reactLogo from '../assets/react.svg';
-import viteLogo from '/vite.svg';
-import '../App.scss';
+import Logo from '../assets/Logo.svg';
+import '../styles/Home.scss';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useEffect, useState } from 'react';
 import {
     loginUrl,
-    redirectUri,
     spotifyClientId,
     spotifyClientSecret,
 } from '../spotifyConstants';
+import { User } from '../types/user.ts';
 
 const spotify = new SpotifyWebApi();
 
 const Home = () => {
     const [spotifyToken, setSpotifyToken] = useState('');
+    const [userInfo, setUserInfo] = useState<User | null>(null);
 
     const getTokenFromUrl = () => {
         return window.location.hash
@@ -26,10 +26,11 @@ const Home = () => {
             }, {});
     };
 
+    const logout = () => {
+        setSpotifyToken('');
+    };
+
     useEffect(() => {
-        const urlString = window.location.search;
-        const urlSearch = new URLSearchParams(urlString);
-        const code = urlSearch.get('code');
         const authParams = {
             method: 'POST',
             headers: {
@@ -41,16 +42,13 @@ const Home = () => {
                     ).toString('base64'),
             },
             body: new URLSearchParams({
-                grant_type: 'authorization_code',
-                redirect_uri: redirectUri,
-                code: code || '',
+                grant_type: 'client_credentials',
             }),
         };
 
         fetch('https://accounts.spotify.com/api/token', authParams)
             .then((response) => response.json())
             .then((data) => {
-                console.log('data', data);
                 setSpotifyToken(data.access_token);
             })
             .catch((error) => {
@@ -58,39 +56,54 @@ const Home = () => {
             });
 
         const token = getTokenFromUrl().access_token;
-        console.log('token', token);
         if (token) {
             setSpotifyToken(token);
             spotify.setAccessToken(token);
             spotify.getMe().then((user) => {
-                console.log('user:', user);
+                const mappedUser: User = {
+                    id: user.id,
+                    display_name: user.display_name,
+                    followers: {
+                        href: user.followers?.href || null,
+                        total: user.followers?.total || 0,
+                    },
+                    images: user.images,
+                };
+                setUserInfo(mappedUser);
             });
         }
     }, []);
 
-    console.log('spotifyToken', spotifyToken);
+    if (spotifyToken) {
+        return (
+            <div>
+                <h1>You are logged in:</h1>
+                <div className="user">
+                    <h2>User: {userInfo?.display_name}</h2>
+                    <img
+                        src={userInfo?.images?.[0].url}
+                        alt={userInfo?.display_name}
+                    />
+                    <a
+                        //href="https://accounts.spotify.com"
+                        onClick={() => logout()}
+                    >
+                        Logout?
+                    </a>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
             <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img
-                        src={reactLogo}
-                        className="logo-react"
-                        alt="React logo"
-                    />
-                </a>
+                <img src={Logo} className="logo" alt="TuneTrack" />
             </div>
-            <h1>Vite + React</h1>
+            <h1>TuneTrack</h1>
             <div className="card">
                 <a href={loginUrl}>Login with Spotify</a>
             </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
         </>
     );
 };
