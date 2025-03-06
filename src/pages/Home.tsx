@@ -1,4 +1,5 @@
 import Logo from '../assets/Logo.svg';
+import Hero from '../assets/Hero.svg';
 import '../styles/Home.scss';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useEffect, useState } from 'react';
@@ -6,7 +7,7 @@ import {
     loginUrl,
     spotifyClientId,
     spotifyClientSecret,
-} from '../spotifyConstants';
+} from '../constants/spotifyConstants.ts';
 import { User } from '../types/user.ts';
 
 const spotify = new SpotifyWebApi();
@@ -97,12 +98,20 @@ const Home = () => {
 
     return (
         <>
-            <div>
-                <img src={Logo} className="logo" alt="TuneTrack" />
-            </div>
-            <h1>TuneTrack</h1>
-            <div className="card">
-                <a href={loginUrl}>Login with Spotify</a>
+            <div className="main">
+                <div className="title">
+                    <img src={Logo} className="logo" alt="TuneTrack" />
+                    <h1>TuneTrack</h1>
+                    <p>
+                        Discover, track, and favorite your top artists while
+                        staying in sync with your Spotify playlist - all in one
+                        place.
+                    </p>
+                    <a href={loginUrl}>Login with Spotify</a>
+                </div>
+                <div className="hero">
+                    <img src={Hero} alt="Hero" />
+                </div>
             </div>
         </>
     );
