@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+}
+
+.textlink {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    font-weight: 800;
+}
+
+.active {
+    color: #67a18f;
+
+    svg path {
+        stroke: #67a18f;
+    }
+}

@@ -1,0 +1,11 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+
+    img {
+        height: auto;
+        border-radius: 50%;
+    }
+}

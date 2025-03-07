@@ -1,27 +1,32 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Favorites from './pages/Favorites';
-import Search from './pages/Search';
-import Home from './pages/Home';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Outlet,
+} from 'react-router-dom';
+import Favorites from './pages/Favorites/index.tsx';
+import Search from './pages/Search/index.tsx';
+import Home from './pages/Home/index.tsx';
+import LandingPage from './pages/LandingPage/index.tsx';
+import './global.scss';
+import Sidebar from './components/Sidebar/index.tsx';
+
+const SidebarLayout = () => (
+    <>
+        <Sidebar />
+        <Outlet />
+    </>
+);
 
 const App = () => (
     <Router>
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">TuneTrack</Link>
-                </li>
-                <li>
-                    <Link to="/about">About</Link>
-                </li>
-                <li>
-                    <Link to="/contact">Contact</Link>
-                </li>
-            </ul>
-        </nav>
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route element={<SidebarLayout />}>
+                <Route path="/home" element={<Home />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/favorites" element={<Favorites />} />
+            </Route>
         </Routes>
     </Router>
 );

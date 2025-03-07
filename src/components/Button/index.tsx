@@ -1,5 +1,6 @@
 import React from 'react';
 import { BUTTON_SIZES, BUTTON_VARIANTS } from '../../constants/styles';
+import styles from './Button.module.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: BUTTON_VARIANTS;
@@ -10,10 +11,12 @@ const Button = ({
     children,
     variant = BUTTON_VARIANTS.Primary,
     size = BUTTON_SIZES.Small,
+    ...rest
 }: ButtonProps) => {
     return (
         <button
-        //className={`${styles.button} ${styles[variant]} ${styles[size]}`}
+            className={`${styles.btn} ${styles[variant]} ${styles[size]}`}
+            {...rest}
         >
             {children}
         </button>

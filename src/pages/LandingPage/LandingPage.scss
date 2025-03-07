@@ -1,0 +1,41 @@
+.main {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+    padding: 1em;
+
+    h1 {
+        color: #1f2b3c;
+        font-size: 80px;
+    }
+
+    p {
+        max-width: 60%;
+        text-align: center;
+    }
+
+    svg {
+        align-self: center;
+    }
+}
+
+.hero {
+    background-color: #bfdeeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        width: 665px;
+        height: 678px;
+        padding: 3em;
+    }
+}

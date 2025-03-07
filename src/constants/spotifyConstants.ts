@@ -14,4 +14,4 @@ export const scopes = [
     'user-modify-playback-state',
 ];
 
-export const loginUrl = `${authEndpoint}?client_id=${spotifyClientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
+//export const loginUrl = `${authEndpoint}?client_id=${spotifyClientId}&redirect_uri=${redirectUri}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
